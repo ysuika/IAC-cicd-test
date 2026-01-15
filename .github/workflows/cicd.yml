@@ -1,0 +1,45 @@
+name: Sample CDK CI Caller Workflow
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+# Limit scope of workflow token to enhance security
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  call-cdk-ci-workflow:
+    uses: ysuika/IAC-cicd-templates/.github/workflows/cdk-ci.yml@main
+    with:
+      # Required inputs
+      TEST_ACCOUNT_NUMBER: "123456789012"
+      PROD_ACCOUNT_NUMBER: "987654321098"
+      ARTIFACT_BUCKET_NAME: "my-org-build-artifact-123456789012"
+      TOOL_BUCKET_NAME: "my-org-tool-123456789012"
+      ORG_NAME: "myorg"
+      PRODUCT_NAME: "myproduct"
+      MODULE_NAME: "mymodule"
+      KENOBI_VERSION: "3.0.4"
+      VERSION_BUILDNUMBER_PARAM: "/buildnumber/myorg-myproduct-mymodule"
+      
+      TEST_ENV: "test"
+      PROD_ENV: "prod"
+      AWS_DEFAULT_REGION: "ap-northeast-1"
+      
+      COMMUNICATION_CHECK_MATRIX: |
+        [
+          {"runs_on": "[\"self-hosted\", \"Linux\", \"ARM64\"]"},
+          {"runs_on": "[\"self-hosted\", \"Linux\", \"x64\"]"},
+          {"runs_on": "[\"ubuntu-latest\"]"}
+        ]
