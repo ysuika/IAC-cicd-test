@@ -39,7 +39,7 @@ jobs:
       
       COMMUNICATION_CHECK_MATRIX: |
         [
-          {"runs_on": "[\"self-hosted\", \"Linux\", \"ARM64\"]"},
-          {"runs_on": "[\"self-hosted\", \"Linux\", \"x64\"]"},
-          {"runs_on": "[\"ubuntu-latest\"]"}
+          {"key": "1", "runs_on": "[\"self-hosted\", \"Linux\", \"ARM64\"]"},
+          {"key": "2", "runs_on": "[\"self-hosted\", \"Linux\", \"x64\"]"},
+          {"key": "3", "runs_on": "[\"ubuntu-latest\"]"}
         ]
